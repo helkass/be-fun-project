@@ -1,0 +1,10 @@
+.button--icon {
+   color: var(--primary);
+   width: max-content;
+   height: max-content;
+   padding: 5px;
+   border-radius: 100%;
+   background-color: inherit;
+   display: flex;
+   align-items: center;
+}

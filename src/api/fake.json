@@ -1,0 +1,47 @@
+[
+   {
+      "title": "Cappuccino",
+      "description": "Cappuccino is a latte made with more foam than ste… milk or ones that throw in flavor shot, as well.",
+      "ingredients": ["Espresso", "Steamed Milk", "Foam"],
+      "image": "https://upload.wikimedia.org/wikipedia/commons/e/ed/Wet_Cappuccino_with_heart_latte_art.jpg",
+      "id": 3,
+      "currency": "dollar us",
+      "price": 4.3
+   },
+   {
+      "title": "Espresso",
+      "description": "An espresso shot can be served solo or used as the…f most coffee drinks, like lattes and macchiatos.",
+      "ingredients": ["1oz Espresso"],
+      "image": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Tazzina_di_caff%C3%A8_a_Ventimiglia.jpg",
+      "id": 5,
+      "currency": "dollar us",
+      "price": 5
+   },
+   {
+      "title": "Doppio",
+      "description": "A double shot of espresso, the doppio is perfect for putting extra pep in your step.",
+      "ingredients": ["2oz Espresso"],
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Doppio.jpg/2560px-Doppio.jpg",
+      "id": 6,
+      "currency": "dollar us",
+      "price": 3.6
+   },
+   {
+      "title": "Cortado",
+      "description": "Like yin and yang, a cortado is the perfect balanc…lk is used to cut back on the espresso’s a city.",
+      "ingredients": ["1oz Espresso", "1oz Steamed Milk"],
+      "image": "https://upload.wikimedia.org/wikipedia/commons/1/16/Caf%C3%A9Cortado%28Tallat%29.jpg",
+      "id": 7,
+      "currency": "dollar us",
+      "price": 7
+   },
+   {
+      "title": "Red Eye",
+      "description": "Named after those pesky midnight flights, a red ey…d in, this will definitely get your heart racing.",
+      "ingredients": ["Coffee", "Espresso"],
+      "image": "https://upload.wikimedia.org/wikipedia/commons/f/f7/Linea_doubleespresso.jpg",
+      "id": 8,
+      "currency": "dollar us",
+      "price": 6.3
+   }
+]

@@ -1,0 +1,33 @@
+.product--content {
+   max-width: calc(100vw - 20%);
+   margin: auto;
+   align-items: center;
+   display: flex;
+   flex-direction: column;
+   justify-items: center;
+   width: 100%;
+}
+
+.product--content .product--list {
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   margin: auto;
+   justify-content: space-evenly;
+   gap: 15px;
+}
+
+.button--to--cart {
+   align-self: end;
+   margin-bottom: 15px;
+   position: relative;
+}
+
+.button--to--cart .button--cart--quantity {
+   position: absolute;
+   right: -5px;
+   top: -5px;
+   font-size: 1.2rem;
+   color: var(--green);
+   padding: 2px;
+}

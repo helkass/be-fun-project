@@ -1,0 +1,95 @@
+.input-promo {
+   padding: 4px 6px;
+   border-radius: 10px;
+   border: 1.8px solid gray;
+   display: flex;
+   justify-content: space-between;
+}
+
+.input-promo input {
+   background: inherit;
+   padding: 2px;
+   width: 80%;
+   font-size: 1rem;
+   border: none;
+}
+
+.input-promo button {
+   border-radius: 10px;
+   background: var(--green);
+   color: white;
+   padding: 3px 12px;
+   letter-spacing: 1px;
+}
+
+.input-promo input:focus {
+   outline: none;
+}
+
+.total-and-shipping {
+   border-bottom: 2px solid gray;
+   margin-top: 1rem;
+   color: gray;
+}
+
+.total-and-shipping p {
+   font-size: 0.9rem;
+}
+
+.total-and-shipping .shipping-title {
+   display: flex;
+   width: 100%;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.form-checkout {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   background: var(--green);
+   border-radius: 20px;
+   color: white;
+   padding: 15px 20px;
+   margin-top: 12px;
+}
+.form-checkout p {
+   font-size: 0.8rem;
+}
+
+.form-checkout strong {
+   font-size: 1.8rem;
+}
+
+.form-checkout button {
+   background: white;
+   color: var(--hard-green);
+   border-radius: 15px;
+   padding: 15px;
+   font-weight: 600;
+   font-size: 1rem;
+}
+
+/* mobile responsive */
+@media (max-width: 547px) {
+   .form-checkout strong {
+      font-size: 1.4rem;
+   }
+}
+
+/* tablet responsive */
+@media (max-width: 900px) {
+   .form-checkout {
+      padding: 5px 10px;
+      border-radius: 15px;
+   }
+   .form-checkout button {
+      font-size: 0.9rem;
+      padding: 6px 10px;
+      border-radius: 10px;
+   }
+
+   .form-checkout strong {
+      font-size: 1.3rem;
+   }
+}

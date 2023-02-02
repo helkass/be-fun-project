@@ -1,0 +1,10 @@
+footer {
+    padding-top: 3em;
+    display: flex;
+    justify-items: center;
+    text-align: center;
+}
+
+footer span {
+    opacity: 0.8;
+}
