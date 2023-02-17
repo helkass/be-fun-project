@@ -74,37 +74,3 @@ export const PayContents = styled.div`
   justify-content: space-between;
   padding: 1rem;
 `;
-
-export const CategoriesSliderList = styled.div`
-  display: flex;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  ::-webkit-scrollbar {
-    height: 5px;
-  }
-  width: 100%;
-  gap: 15px;
-  padding: 2.2rem 0 1rem;
-  flex-wrap: nowrap;
-`;
-export const CategoryItem = styled.div`
-  display: flex;
-  align-items: center;
-  text-transform: capitalize;
-  color: ${(props) => props.theme.text.gray};
-  font-weight: 600;
-  padding: 9px 12px;
-  gap: 10px;
-  border-radius: 20px;
-  border: 1px solid ${(props) => props.theme.border.gray};
-  flex-wrap: nowrap;
-  min-width: max-content;
-  font-size: 0.8rem;
-  cursor: pointer;
-
-  > img {
-    width: 20px;
-    height: 20px;
-    object-fit: cover;
-  }
-`;

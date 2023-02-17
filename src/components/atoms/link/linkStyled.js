@@ -4,6 +4,7 @@ export const LinkStyled = styled.span`
   color: #003;
   font-size: ${(props) => props.fs || "0.8rem"};
   align-items: center;
+  column-gap: 10px;
   display: flex;
   color: ${(props) => props.color || props.theme.text.gray};
   line-height: 23px;

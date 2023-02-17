@@ -12,7 +12,7 @@ export const FooterWrapper = styled.footer`
 export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 5px;
+  row-gap: ${(props) => props.rowGap || "5px"};
   margin-top: 10px;
 `;
 

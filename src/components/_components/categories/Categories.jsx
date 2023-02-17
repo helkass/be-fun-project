@@ -10,8 +10,6 @@ import {
   PayButtonWrapper,
   PayButtons,
   PayContents,
-  CategoriesSliderList,
-  CategoryItem,
 } from "./categoriesStyled";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import Input from "../../atoms/input/Input";
@@ -24,6 +22,7 @@ import bill from "../../../assets/bill.png";
 import smartphone from "../../../assets/smartphone.png";
 import categories from "../../../assets/categories.png";
 import computer from "../../../assets/computer.png";
+import CategoriesComponent from "../../templates/categoriesSlider/CategoriesSlider";
 
 const Categories = () => {
   const [paymentList, PaymentList] = React.useState("pulsa");
@@ -83,14 +82,7 @@ const Categories = () => {
           </PayListWrapper>
         </FlexContent>
       </FlexWrapper>
-      <CategoriesSliderList>
-        {categoriesSlides.map((cat) => (
-          <CategoryItem key={cat.label}>
-            <img src={cat.image} alt="slides" />
-            {cat.label}
-          </CategoryItem>
-        ))}
-      </CategoriesSliderList>
+      <CategoriesComponent data={categoriesSlides} />
     </CategogyWrapper>
   );
 };
@@ -124,31 +116,31 @@ const buttonPays = ["Pulsa", "Paket Data", "Flight", "Listrik PLN"];
 
 const categoriesSlides = [
   {
-    image: categories,
+    urlImage: categories,
     label: "kategori",
   },
   {
-    image: smartphone,
+    urlImage: smartphone,
     label: "Handphone & tablet",
   },
   {
-    image: bill,
+    urlImage: bill,
     label: "top-up & tagihan",
   },
   {
-    image: plane,
+    urlImage: plane,
     label: "travel & entertaiment",
   },
   {
-    image: dog,
+    urlImage: dog,
     label: "perawatan hewan",
   },
   {
-    image: money,
+    urlImage: money,
     label: "keuangan",
   },
   {
-    image: computer,
+    urlImage: computer,
     label: "komputer & laptop",
   },
 ];

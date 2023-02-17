@@ -9,6 +9,7 @@ import NewMember from "../../components/_components/_recommendations/newMember/N
 import styled from "styled-components";
 import Catalogs from "../../components/_components/catalogs/Catalogs";
 import Footer from "../../components/_components/footer/Footer";
+import { getWindowDimensions } from "../../functions/getWindowDimensions";
 
 const BreakSection = styled.div`
   min-width: 100vh;
@@ -20,18 +21,29 @@ const BreakSection = styled.div`
 `;
 
 class Home extends Component {
+  state = {
+    width: 0,
+  };
+
+  componentDidMount() {
+    const { width } = getWindowDimensions();
+
+    this.setState({ width });
+  }
   render() {
+    const { width } = this.state;
     return (
       <>
         <Header />
         {/* main content */}
-        <Container>
+        <Container pt="4rem">
           <Carousel />
-          <Categories />
+          {/* on mobile set hidden */}
+          {width > 600 && <Categories />}
           <NewMember />
           <Cod />
         </Container>
-        <BreakSection />
+        {/* <BreakSection />
         <Container>
           <Suggestions />
           <Catalogs />
@@ -39,7 +51,7 @@ class Home extends Component {
         <BreakSection h="2px" />
         <Container>
           <Footer />
-        </Container>
+        </Container> */}
       </>
     );
   }

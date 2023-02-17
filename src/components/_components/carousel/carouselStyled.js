@@ -3,10 +3,20 @@ import styled from "styled-components";
 export const CarouselWrapper = styled.div`
   overflow-x: hidden;
   width: 100%;
-  margin-top: 1rem;
+  margin-top: 9rem;
   position: relative;
   border-radius: 15px;
   transition: all 0.5s ease-in;
+
+  @media (max-width: 600px) {
+    background: white;
+    margin-top: 1.1rem;
+    padding-top: 1rem;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+  }
 `;
 
 export const ImageCarousel = styled.img`
@@ -16,6 +26,13 @@ export const ImageCarousel = styled.img`
   transition: all 0.5s ease-in;
   transition-delay: 0.5ms;
   border-radius: 15px;
+
+  @media (max-width: 600px) {
+    width: 97%;
+    margin: auto;
+    height: 100%;
+    border-radius: 8px;
+  }
 `;
 
 export const ButtonCarousel = styled.button`

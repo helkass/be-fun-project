@@ -15,6 +15,11 @@ export const CardWrapper = styled.div`
     font-weight: 600;
     font-size: 1rem;
   }
+
+  @media (max-width: 600px) {
+    min-height: 140px;
+    width: 100%;
+  }
 `;
 export const CardContent = styled.div`
   padding: 6px;

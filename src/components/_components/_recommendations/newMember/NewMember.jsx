@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { getWindowDimensions } from "../../../../functions/getWindowDimensions";
 import {
   ArrowButtonBack,
   ArrowButtonForward,
@@ -19,24 +20,24 @@ import {
   CardContent,
   BarProcentance,
   StatusProduct,
+  FlexWrapper,
 } from "./newMemberStyled";
 
 const NewMember = () => {
   const [showArrows, setShowArrows] = React.useState(true);
   const [slideMove, setSlideMove] = React.useState(true);
-
-  React.useEffect(() => {
-    console.log(showArrows);
-  }, []);
+  const { width } = getWindowDimensions();
 
   return (
     <NewMemberWrapper>
       <HeaderWrapper>
-        <Title>traktiran pengguna baru</Title>
-        <span>berakhr dalam</span>
-        <ClockWrapper>
-          <Clock>12</Clock>:<Clock>00</Clock>:<Clock>00</Clock>
-        </ClockWrapper>
+        <FlexWrapper>
+          <Title>traktiran pengguna baru</Title>
+          <HeaderWrapper>
+            <span>berakhr dalam</span>
+            <ClockTimer select={width} />
+          </HeaderWrapper>
+        </FlexWrapper>
         <TitleLink green to="/">
           lihat semua
         </TitleLink>
@@ -74,6 +75,25 @@ const NewMember = () => {
         />
       </MainContent>
     </NewMemberWrapper>
+  );
+};
+
+// clock penawaran
+const ClockTimer = ({ select }) => {
+  if (select > 600) {
+    return (
+      <ClockWrapper>
+        <Clock>12</Clock>:<Clock>00</Clock>:<Clock>00</Clock>
+      </ClockWrapper>
+    );
+  }
+
+  return (
+    <ClockWrapper>
+      <Clock>12</Clock>
+      <Clock>00</Clock>
+      <Clock>00</Clock>
+    </ClockWrapper>
   );
 };
 

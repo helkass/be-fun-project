@@ -4,6 +4,10 @@ export const TitleWrapper = styled.h2`
   font-weight: 600;
   font-size: 1.3rem;
   text-transform: capitalize;
+
+  @media (max-width: 600px) {
+    font-size: 1rem;
+  }
 `;
 
 export const LinkTitle = styled.span`
@@ -11,4 +15,8 @@ export const LinkTitle = styled.span`
     props.green ? props.theme.primary : props.theme.text.gray};
   font-weight: 600;
   text-transform: capitalize;
+
+  @media (max-width: 600px) {
+    font-size: 0.845rem;
+  }
 `;

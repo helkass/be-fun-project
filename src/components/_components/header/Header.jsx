@@ -13,16 +13,38 @@ import {
   ButtonAuthWrapper,
   ButtonAuth,
   LocationWrapper,
+  MobileIcon,
+  MobileNavbarWrapper,
+  MobileFlex,
+  MobileContent,
 } from "./headerStyled";
 import { IoIosPhonePortrait, IoIosArrowDown } from "react-icons/io";
 import LinkAboutHaader from "../../atoms/link/Link";
 import tokopediaLogo from "../../../assets/tokopedia-logo.svg";
 import { Link } from "react-router-dom";
-import { BsSearch, BsCartFill } from "react-icons/bs";
+import { BsSearch, BsCartFill, BsBag } from "react-icons/bs";
 import { TfiLocationPin } from "react-icons/tfi";
+import {
+  AiOutlineMail,
+  AiOutlineShoppingCart,
+  AiOutlineClose,
+  AiOutlineHeart,
+  AiOutlineStar,
+} from "react-icons/ai";
+import { MdOutlineNotifications } from "react-icons/md";
+import { HiOutlineBars3, HiOutlineBuildingStorefront } from "react-icons/hi2";
+import { HiOutlineDotsCircleHorizontal } from "react-icons/hi";
+import { ContentWrapper } from "../footer/footerStyled";
+import LinkTitle from "../../atoms/link/Link";
+import { mobileNavContents } from "./data";
+import { RiBillLine } from "react-icons/ri";
+import { SlPlane } from "react-icons/sl";
+import { GrMoney } from "react-icons/gr";
 
 const Header = () => {
   const [header, setHeader] = React.useState(false);
+  const [showNav, setShowNav] = React.useState(false);
+
   const changeColor = () => {
     if (window.scrollY >= 80) {
       setHeader(true);
@@ -60,6 +82,19 @@ const Header = () => {
               </LinkAboutHaader>
             ))}
           </LinkWrapper>
+          {/* mobile only */}
+          <MobileIcon>
+            <AiOutlineMail size={24} />
+          </MobileIcon>
+          <MobileIcon>
+            <MdOutlineNotifications size={24} />
+          </MobileIcon>
+          <MobileIcon>
+            <AiOutlineShoppingCart size={24} />
+          </MobileIcon>
+          <MobileIcon onClick={() => setShowNav(!showNav)}>
+            <HiOutlineBars3 size={24} />
+          </MobileIcon>
         </ContentCenterWrapper>
         <RightWrapper>
           <SideContent>
@@ -79,6 +114,8 @@ const Header = () => {
           </LocationWrapper>
         </RightWrapper>
       </NavbarWrapper>
+      {/* on mobile only */}
+      <MobileNavbar isOpen={showNav} isClose={() => setShowNav(false)} />
     </HeaderWrapper>
   );
 };
@@ -103,6 +140,39 @@ const AboutHeader = () => {
   );
 };
 
+const MobileNavbar = ({ isOpen, isClose }) => {
+  return (
+    <MobileNavbarWrapper isOpen={isOpen}>
+      <MobileFlex>
+        <button onClick={isClose}>
+          <AiOutlineClose size={20} />
+        </button>
+        <h4>Menu Utama</h4>
+      </MobileFlex>
+      <MobileFlex>
+        <ButtonAuth color="white">Masuk</ButtonAuth>
+        <ButtonAuth>Daftar</ButtonAuth>
+      </MobileFlex>
+      <MobileContent>
+        {mobileNavContents.map((nav, idx) => (
+          <ContentWrapper rowGap="1.5rem" key={idx}>
+            <h4>{nav.title}</h4>
+            {nav.content.map((ct, idx) => {
+              const Icon = icons[idx];
+              return (
+                <LinkTitle fs="0.9rem" to="/" key={idx}>
+                  <Icon size={20} color="#003" />
+                  {ct}
+                </LinkTitle>
+              );
+            })}
+          </ContentWrapper>
+        ))}
+      </MobileContent>
+    </MobileNavbarWrapper>
+  );
+};
+
 const links = [
   {
     title: "tentang tokopedia",
@@ -124,6 +194,18 @@ const links = [
     title: "tokopedia care",
     link: "/",
   },
+];
+
+const icons = [
+  RiBillLine,
+  AiOutlineHeart,
+  AiOutlineStar,
+  HiOutlineBuildingStorefront,
+  BsBag,
+  RiBillLine,
+  SlPlane,
+  GrMoney,
+  HiOutlineDotsCircleHorizontal,
 ];
 
 const linksRecommendations = [
