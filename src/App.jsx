@@ -1,8 +1,11 @@
 import Router from "./routes/Router";
+import Layout from "./template/Layout";
 function App() {
    return (
       <div className="App">
-         <Router />
+         <Layout>
+            <Router />
+         </Layout>
       </div>
    );
 }

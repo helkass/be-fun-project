@@ -17,10 +17,12 @@ const Navbar = () => {
             <button onClick={() => setBar(!bar)} className="bar">
                {bar ? <AiOutlineClose size={30} /> : <FaBars size={30} />}
             </button>
-            <div className="logo">
-               <img className="logo-img" src={logo} />
-               <img className="logo-text" src={logo_text} />
-            </div>
+            <Link to="/">
+               <div className="logo">
+                  <img className="logo-img" src={logo} />
+                  <img className="logo-text" src={logo_text} />
+               </div>
+            </Link>
             <span></span>
          </div>
          <div className={`nav-links ${bar && "remove-left"}`}>
@@ -29,7 +31,7 @@ const Navbar = () => {
                   <button className="btn-nav">{link.title}</button>
                </Link>
             ))}
-            <Link to="/">
+            <Link to="/contactme">
                <button className="btn-contact">Contact Us</button>
             </Link>
             {/* mobile only */}

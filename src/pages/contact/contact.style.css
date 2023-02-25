@@ -1,0 +1,144 @@
+#contact-container {
+   min-height: calc(100vh - 1em);
+   padding: 2em 5rem;
+   position: relative;
+}
+
+#contact-container .contact-content h1 {
+   font-size: 2.7rem;
+   letter-spacing: -2px;
+   line-height: 2.8rem;
+   width: 50%;
+}
+
+.contact-content {
+   max-width: 1100px;
+   width: 80%;
+   padding-left: 6em;
+   padding-right: 3em;
+   float: right;
+   display: flex;
+   flex-direction: column;
+   gap: 2em;
+   position: relative;
+}
+
+.contact-content::after {
+   content: "";
+   position: absolute;
+   left: 0;
+   height: 25%;
+   width: 1.5px;
+   top: 15%;
+   background: var(--hard-green);
+}
+
+.contact-content::before {
+   content: "";
+   position: absolute;
+   left: 0;
+   height: 30%;
+   width: 1.5px;
+   top: 15%;
+   background: rgba(230, 229, 229, 0.5);
+}
+.contact--form--container {
+   display: flex;
+   flex-direction: column;
+   gap: 1rem;
+   width: 100%;
+}
+
+.contact--flex {
+   display: flex;
+   gap: 1rem;
+   justify-content: space-between;
+   width: 100%;
+}
+
+.contact--input--content {
+   display: flex;
+   flex-direction: column;
+   gap: 7px;
+   width: 100%;
+}
+
+.contact--input--content input,
+textarea {
+   min-width: 300px;
+   min-height: 25px;
+   padding: 7px;
+   border: none;
+   border-radius: 5px;
+   background: rgba(230, 229, 229, 0.2);
+}
+
+.contact--input--content textarea {
+   min-height: 8em;
+}
+
+.contact--input--content input:focus,
+textarea:focus {
+   outline: 1px solid var(--green);
+}
+
+.contact--input--content input::placeholder {
+   color: gray;
+   text-transform: capitalize;
+}
+
+.contact-content button {
+   background: var(--green);
+   color: white;
+   max-width: 320px;
+   display: flex;
+   gap: 10px;
+   letter-spacing: 2px;
+}
+
+@media (max-width: 820px) {
+   #contact-container {
+      padding: 1.2em;
+   }
+   #contact-container .contact-content {
+      padding: 2rem;
+      width: 90%;
+   }
+   #contact-container .contact-content h1 {
+      width: 80%;
+   }
+}
+
+@media (max-width: 600px) {
+   #contact-container {
+      padding: 1em;
+   }
+   .contact-content {
+      width: 90%;
+      margin: 0 auto;
+      padding: 0;
+   }
+
+   .contact-content::after {
+      left: -30px;
+   }
+   .contact-content::before {
+      left: -30px;
+   }
+   #contact-container .contact-content h1 {
+      width: 100%;
+      font-size: 1.6rem;
+      line-height: 1.8rem;
+      text-align: center;
+   }
+
+   .contact--flex {
+      flex-direction: column;
+   }
+
+   .contact-content button {
+      margin: auto;
+      float: right;
+      min-width: 70%;
+   }
+}

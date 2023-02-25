@@ -1,6 +1,5 @@
 import React from "react";
 import Card from "../../components/parts/card/Card";
-import Layout from "../../template/Layout";
 import "./products.css";
 import dataCoffee from "../../api/fake.json";
 import ButtonIcon from "../../components/parts/button/ButtonIcon";
@@ -26,34 +25,32 @@ function productLists() {
    };
 
    return (
-      <Layout>
-         <section id="products">
-            <ALert title="add to cart" active={alert} />
-            <div className="product--content">
-               <div className="button--to--cart">
-                  <span className="button--cart--quantity">
-                     {cartItems.length}
-                  </span>
-                  <ButtonIcon
-                     icon={BsCartFill}
-                     sizeIcon={25}
-                     onClick={() => navigate("/carts")}
-                  />
-               </div>
-               <div className="product--list">
-                  {dataCoffee?.map((coffee) => (
-                     <Card
-                        key={coffee.id}
-                        title={coffee.title}
-                        image={coffee.image}
-                        description={coffee.description}
-                        onAddCart={() => addToCart(coffee)}
-                     />
-                  ))}
-               </div>
+      <section id="products">
+         <ALert title="add to cart" active={alert} />
+         <div className="product--content">
+            <div className="button--to--cart">
+               <span className="button--cart--quantity">
+                  {cartItems.length}
+               </span>
+               <ButtonIcon
+                  icon={BsCartFill}
+                  sizeIcon={25}
+                  onClick={() => navigate("/carts")}
+               />
             </div>
-         </section>
-      </Layout>
+            <div className="product--list">
+               {dataCoffee?.map((coffee) => (
+                  <Card
+                     key={coffee.id}
+                     title={coffee.title}
+                     image={coffee.image}
+                     description={coffee.description}
+                     onAddCart={() => addToCart(coffee)}
+                  />
+               ))}
+            </div>
+         </div>
+      </section>
    );
 }
 
