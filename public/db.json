@@ -1,0 +1,61 @@
+{
+   "products": [
+      {
+         "id": "1",
+         "image": "/images/1.jpg",
+         "product_name": "autumn dress",
+         "discount": true,
+         "currency": "usd",
+         "first_amount": 85,
+         "rating": 5,
+         "last_amount": 58,
+         "colors": ["green", "blue", "red", "gray"],
+         "sizes": ["sm", "l", "xl", "2xl"],
+         "categories": ["woman", "winter", "shirt"],
+         "brand": "gucci",
+         "details": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam assumenda quibusdam voluptatum amet nulla culpa, eveniet excepturi asperiores temporibus natus dolores quod, omnis voluptatibus, rem molestiae atque aut quia inventore! p-1"
+      },
+      {
+         "id": "2",
+         "image": "/images/2.jpg",
+         "product_name": "blazer jacket",
+         "discount": false,
+         "currency": "usd",
+         "amount": 285,
+         "rating": 5,
+         "colors": ["red", "gray"],
+         "sizes": ["sm", "l", "xl"],
+         "categories": ["men", "casual", "jackets"],
+         "brand": "gap",
+         "details": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam assumenda quibusdam voluptatum amet nulla culpa, eveniet excepturi asperiores temporibus natus dolores quod, omnis voluptatibus, rem molestiae atque aut quia inventore! p-2"
+      },
+      {
+         "id": "3",
+         "image": "/images/3.jpg",
+         "product_name": "leather coat",
+         "discount": false,
+         "currency": "usd",
+         "amount": 185,
+         "rating": 4,
+         "colors": ["red", "gray", "brown"],
+         "sizes": ["l", "xl"],
+         "categories": ["woman", "casual", "shirt"],
+         "brand": "zara",
+         "details": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam assumenda quibusdam voluptatum amet nulla culpa, eveniet excepturi asperiores temporibus natus dolores quod, omnis voluptatibus, rem molestiae atque aut quia inventore! p-3"
+      },
+      {
+         "id": "4",
+         "image": "/images/4.jpg",
+         "product_name": "adidas shirt",
+         "discount": false,
+         "currency": "usd",
+         "amount": 285,
+         "rating": 3,
+         "colors": ["red", "gray"],
+         "sizes": ["sm", "l", "xl"],
+         "categories": ["woman", "jas", "shirt"],
+         "brand": "gucci",
+         "details": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam assumenda quibusdam voluptatum amet nulla culpa, eveniet excepturi asperiores temporibus natus dolores quod, omnis voluptatibus, rem molestiae atque aut quia inventore! p-4"
+      }
+   ]
+}
