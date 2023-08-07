@@ -7,6 +7,8 @@ const InputComponent = ({
    placeholder,
    select,
    options,
+   handleChange,
+   handleKeyUp,
 }) => {
    if (select) {
       return (
@@ -34,9 +36,11 @@ const InputComponent = ({
             {required && "*"}
          </span>
          <input
+            onChange={handleChange}
             name={name}
             type={type || "text"}
             placeholder={placeholder}
+            onKeyUp={handleKeyUp}
             className={`${
                readOnly && "bg-slate-50"
             } border focus:outline-none rounded placeholder:text-sm border-slate-100 w-full p-2`}

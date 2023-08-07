@@ -9,6 +9,7 @@ import Subscribe from "./Subcribe";
 import Categories from "./Categories";
 import Products from "./Products";
 import ScrollToTop from "./ScrollToTop";
+import Alert from "./parts/Alert";
 
 export {
    Navbar,
@@ -22,4 +23,5 @@ export {
    Categories,
    Products,
    ScrollToTop,
+   Alert,
 };

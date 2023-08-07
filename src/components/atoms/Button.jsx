@@ -4,8 +4,8 @@ const ButtonIcon = ({ handleClick, Icon, title, className }) => {
    return (
       <button
          onClick={handleClick}
-         className={`xl:h-[30px] xl:w-[30px] min-w-[25px] min-h-25px flex items-center hover:bg-slate-50 xl:px-2 p-1 rounded gap-2 font-semibold capitalize text-sm justify-center ${className}`}>
-         <Icon />
+         className={`xl:h-[30px] xl:w-[30px] min-w-[25px] min-h-25px flex items-center hover:bg-slate-50 p-1 rounded gap-2 font-semibold capitalize text-sm justify-center ${className}`}>
+         <Icon size={19} />
          {title && <span>{title}</span>}
       </button>
    );

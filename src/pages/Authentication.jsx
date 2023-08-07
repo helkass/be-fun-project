@@ -1,13 +1,50 @@
 import { FcGoogle } from "react-icons/fc";
 import InputComponent from "../components/atoms/InputComponent";
 import { ButtonPayment } from "../components/atoms/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { LOGIN, REGISTER, RESTART_ALERT } from "../redux/authReducer";
+import { Alert } from "../components";
+import { useNavigate } from "react-router-dom";
 
 const Authentication = () => {
    const [isLogin, setIsLogin] = useState(false);
+   const [fullname, setFullname] = useState("");
+   const [email, setEmail] = useState("");
+   const [password, setPassword] = useState("");
+
+   const dispatch = useDispatch();
+   const navigate = useNavigate();
+   const user = useSelector((state) => state.user);
+
+   const handleSubmit = (e) => {
+      e.preventDefault();
+      isLogin
+         ? dispatch(LOGIN({ email, password }))
+         : dispatch(REGISTER({ fullname, email, password }));
+
+      setTimeout(() => {
+         dispatch(RESTART_ALERT());
+      }, 2000);
+   };
+
+   useEffect(() => {
+      if (user.status) {
+         setTimeout(() => {
+            navigate("/products");
+         }, 2000);
+      }
+   }, [user]);
+
    return (
       <section className="my-12">
-         <div className="container flex">
+         <div className="container flex relative">
+            <Alert
+               show={user?.status !== null}
+               type={user?.status ? "success" : "error"}
+               title={"Authentication"}
+               message={user?.message}
+            />
             <div className="xl:w-1/2 w-full flex flex-col gap-3 text-center justify-center items-center">
                <h2 className="font-semibold text-3xl">
                   {isLogin ? "Welcome back" : "Create your account"}
@@ -24,18 +61,27 @@ const Authentication = () => {
                      or
                   </span>
                </p>
-               <form className="xl:w-7/12 sm:w-9/12 w-10/12 flex flex-col gap-2">
+               <form
+                  onSubmit={handleSubmit}
+                  className="xl:w-7/12 sm:w-9/12 w-10/12 flex flex-col gap-2">
                   {!isLogin && (
                      <InputComponent
                         label={"Fullname"}
                         required
                         name={"fullname"}
+                        handleChange={(e) => setFullname(e.target.value)}
                      />
                   )}
-                  <InputComponent label={"Email"} required name={"email"} />
+                  <InputComponent
+                     handleChange={(e) => setEmail(e.target.value)}
+                     label={"Email"}
+                     required
+                     name={"email"}
+                  />
                   <InputComponent
                      label={"Password"}
                      required
+                     handleChange={(e) => setPassword(e.target.value)}
                      name={"password"}
                      type={"password"}
                   />
