@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { IoIosArrowForward } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const ProductsLayout = ({ children, rootRoutes }) => {
    const roots = rootRoutes?.filter((rt) => rt !== "woman" || "men");
@@ -8,9 +9,11 @@ const ProductsLayout = ({ children, rootRoutes }) => {
          <div className="flex gap-3 text-slate-400 container text-sm items-center sm:!mt-16 !mt-8">
             <span>Home</span>
             <IoIosArrowForward />
-            <span className={rootRoutes ? "text-slate-400" : "text-black"}>
-               Browse products
-            </span>
+            <Link to="/products">
+               <span className={rootRoutes ? "text-slate-400" : "text-black"}>
+                  Browse products
+               </span>
+            </Link>
             {rootRoutes && (
                <Fragment>
                   <IoIosArrowForward />

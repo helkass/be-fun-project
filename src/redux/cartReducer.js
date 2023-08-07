@@ -62,6 +62,7 @@ const cartSlice = createSlice({
             state.carts[ids] = {
                ...state.carts[ids],
                cartQuantity: sumQuantities,
+               amount: action.payload.amount * sumQuantities,
             };
          } else {
             const details = [];
@@ -70,7 +71,9 @@ const cartSlice = createSlice({
                ...action.payload,
                details: details,
                cartQuantity: action.payload.details.detail_quantity,
-               amount: action.payload.amount,
+               amount: Number(
+                  action.payload.amount * action.payload.details.detail_quantity
+               ),
             };
             state.carts.push(tempProduct);
          }
@@ -87,9 +90,107 @@ const cartSlice = createSlice({
 
          localStorage.setItem("g_clothes_carts", JSON.stringify(state.carts));
       },
+      INCREMENT_DETAIL_QUANTITY(state, action) {
+         /**
+          * @params detailId and productId
+          */
+         const products = JSON.stringify(state.carts);
+         const pars = JSON.parse(products);
+
+         // take index specifics of product on carts by product id
+         const indexCartProduct = pars.findIndex(
+            (product) => product.id == action.payload.productId
+         );
+
+         // take details at cart product
+         const details = pars[indexCartProduct].details;
+         // get detail will be updated
+         const detail = details[action.payload.detailId];
+
+         // updating detail_quantity
+         const updated = detail.detail_quantity + 1;
+
+         // set on state
+         state.carts[indexCartProduct].details[action.payload.detailId] = {
+            ...state.carts[indexCartProduct].details[action.payload.detailId],
+            detail_quantity: updated,
+         };
+
+         state.cartTotalQuantity = state.cartTotalQuantity + 1;
+
+         // // save
+         localStorage.setItem(
+            "g_clothes_cartTotalQty",
+            JSON.stringify(state.cartTotalQuantity)
+         );
+         localStorage.setItem("g_clothes_carts", JSON.stringify(state.carts));
+      },
+      DECREMENT_DETAIL_QUANTITY(state, action) {
+         /**
+          * @params detailId and productId
+          */
+         const products = JSON.stringify(state.carts);
+         const pars = JSON.parse(products);
+
+         // take index specifics of product on carts by product id
+         const indexCartProduct = pars.findIndex(
+            (product) => product.id == action.payload.productId
+         );
+
+         // take details at cart product
+         const details = pars[indexCartProduct].details;
+         // get detail will be updated
+         const detail = details[action.payload.detailId];
+
+         // check quantity
+         let updated;
+         if (detail.detail_quantity == 1) {
+            // check length of details
+            if (details.length == 1) {
+               //remove product from cart
+               state.carts = state.carts.filter(
+                  (product) => product.id !== action.payload.productId
+               );
+            } else {
+               // removed
+               state.carts[indexCartProduct].details = state.carts[
+                  indexCartProduct
+               ].details.splice(action.payload.detailId, 1);
+            }
+         } else {
+            // updating detail_quantity
+            updated = detail.detail_quantity - 1;
+            // set on state
+            state.carts[indexCartProduct].details[action.payload.detailId] = {
+               ...state.carts[indexCartProduct].details[
+                  action.payload.detailId
+               ],
+               detail_quantity: updated,
+            };
+         }
+
+         state.cartTotalQuantity = state.cartTotalQuantity - 1;
+         // // save
+         localStorage.setItem(
+            "g_clothes_cartTotalQty",
+            JSON.stringify(state.cartTotalQuantity)
+         );
+         localStorage.setItem("g_clothes_carts", JSON.stringify(state.carts));
+      },
+      REMOVE_ALL(state, action) {
+         localStorage.removeItem("g_clothes_carts");
+         localStorage.removeItem("g_clothes_cartTotalQty");
+         state.carts = [];
+         state.cartTotalQuantity = 0;
+      },
    },
 });
 
-export const { ADD_CART } = cartSlice.actions;
+export const {
+   ADD_CART,
+   INCREMENT_DETAIL_QUANTITY,
+   DECREMENT_DETAIL_QUANTITY,
+   REMOVE_ALL,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

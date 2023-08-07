@@ -1,14 +1,29 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import QuantityComponent from "../components/atoms/QuantityComponent";
 import Typography from "../components/atoms/Typography";
 import ButtonIcon, { ButtonPayment } from "../components/atoms/Button";
 import PaymentLayout from "../components/layout/PaymentLayout";
+import {
+   DECREMENT_DETAIL_QUANTITY,
+   INCREMENT_DETAIL_QUANTITY,
+   REMOVE_ALL,
+} from "../redux/cartReducer";
 
 const LeftContentCart = () => {
    const cartState = useSelector((state) => state.cart);
+   const dispatch = useDispatch();
 
-   function handleRemoveAll() {}
+   function handleRemoveAll() {
+      dispatch(REMOVE_ALL());
+   }
+   function handlePlusQuantity(detailId, productId) {
+      dispatch(INCREMENT_DETAIL_QUANTITY({ detailId, productId }));
+   }
+   function handleMinusQuantity(detailId, productId) {
+      dispatch(DECREMENT_DETAIL_QUANTITY({ detailId, productId }));
+   }
+
    return (
       <>
          <div className="flex justify-between items-centers pr-2 xl:pr-0">
@@ -29,14 +44,22 @@ const LeftContentCart = () => {
                </span>
                <span className="w-3/12 text-center">PRICE</span>
             </div>
-            <WrapperCart
-               image={"./images/2.jpg"}
-               product_name={"produc-name"}
-               price={200}
-               size={"M"}
-               color={"green"}
-               quantity={0}
-            />
+            {cartState?.carts.length >= 0 &&
+               cartState.carts?.map((cart, index) => (
+                  <WrapperCart
+                     key={index}
+                     image={cart.image}
+                     product_name={cart.product_name}
+                     amount={cart.amount}
+                     details={cart.details}
+                     handleMinusQuantity={(detailId) =>
+                        handleMinusQuantity(detailId, cart.id)
+                     }
+                     handlePlusQuantity={(detailId) =>
+                        handlePlusQuantity(detailId, cart.id)
+                     }
+                  />
+               ))}
          </div>
       </>
    );
@@ -82,43 +105,39 @@ function WrapperCart({
    product_name,
    handleMinusQuantity,
    handlePlusQuantity,
-   handleRemove,
-   quantity,
-   price,
-   size,
-   color,
+   amount,
+   details,
 }) {
    return (
       <div className="flex gap-2 flex-nowrap pt-3 py-6 border-b border-slate-100">
-         <div className="w-7/12 flex gap-2">
+         <div className="w-10/12 flex gap-2">
             <img
                src={image}
                alt="image-cart"
                className="w-[90px] h-[90px] object-contain"
             />
-            <div className="flex flex-col gap-2 capitalize">
+            <div className="flex flex-col gap-2 capitalize w-full">
                <strong>{product_name}</strong>
-               <div className="flex gap-2 text-sm text-slate-400">
-                  <span>{size}</span>
-                  <span>-</span>
-                  <span>{color}</span>
-               </div>
+               {details?.map((detail, idx) => (
+                  <div
+                     key={idx}
+                     className="flex justify-between w-full items-center">
+                     <div className="flex gap-2 text-sm text-slate-400">
+                        <span>{detail.size}</span>
+                        <span>-</span>
+                        <span>{detail.color}</span>
+                     </div>
+                     <QuantityComponent
+                        quantity={detail.detail_quantity}
+                        handleMinus={() => handleMinusQuantity(idx)}
+                        handlePlus={() => handlePlusQuantity(idx)}
+                     />
+                  </div>
+               ))}
             </div>
          </div>
-         <span className="w-3/12 flex flex-col gap-2 items-center justify-center">
-            <QuantityComponent
-               quantity={quantity}
-               handleMinus={handleMinusQuantity}
-               handlePlus={handlePlusQuantity}
-            />
-            <ButtonIcon
-               Icon={RiDeleteBin5Line}
-               title={"remove"}
-               handleClick={handleRemove}
-            />
-         </span>
          <span className="w-3/12 text-center font-semibold text-lg">
-            ${price}
+            ${amount}
          </span>
       </div>
    );

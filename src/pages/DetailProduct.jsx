@@ -12,7 +12,8 @@ const DetailProduct = () => {
    const [loading, setLoading] = useState(true);
    const [details, setDetails] = useState("the_details");
    const [quantity, setQuantity] = useState(1);
-   const [size, setSize] = useState(product !== null && product[0]?.sizes[0]);
+   const [color, setColor] = useState(null);
+   const [size, setSize] = useState(null);
    const params = useParams();
 
    const dispatch = useDispatch();
@@ -27,6 +28,10 @@ const DetailProduct = () => {
       }
    };
 
+   const handleColorChange = (e) => {
+      setColor(e.target.value);
+   };
+
    // handle add to carts
    const handleAddToCart = (e) => {
       e.preventDefault();
@@ -35,10 +40,11 @@ const DetailProduct = () => {
          id: product[0].id,
          product_name: product[0].product_name,
          details: {
-            size: size,
-            color: "green",
+            size: size == null ? product[0]?.sizes[0] : size,
+            color: color == null ? product[0].colors[0] : color,
             detail_quantity: quantity,
          },
+         image: product[0].image,
          amount: product[0].discount
             ? product[0].last_amount
             : product[0].amount,
@@ -150,6 +156,8 @@ const DetailProduct = () => {
                                     <input
                                        type="radio"
                                        name="color"
+                                       value={str}
+                                       onChange={handleColorChange}
                                        className={`w-[20px] checked:bg-black text-black cursor-pointer outline-black h-[20px] border border-transparent`}
                                     />
                                  </div>
