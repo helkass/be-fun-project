@@ -17,7 +17,7 @@ export const ButtonPayment = ({ handleClick, type, title, link, disabled }) => {
          e.preventDefault();
       };
       return (
-         <Link to={link} onClick={disabled && handleDisabled}>
+         <Link to={link} onClick={disabled ? handleDisabled : handleClick}>
             <button
                className={`w-full bg-black py-2 flex items-center text-white rounded text-sm justify-center ${
                   disabled &&

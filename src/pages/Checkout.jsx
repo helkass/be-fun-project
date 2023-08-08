@@ -1,5 +1,8 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createOrderForm } from "../redux/orderReducer";
 import InputComponent, { RadioInput } from "../components/atoms/InputComponent";
+import { ButtonPayment } from "../components/atoms/Button";
 
 const countries = ["indonesia", "malaysia", "germany", "USA"];
 const shippingMethods = [
@@ -27,10 +30,35 @@ const shippingMethods = [
 ];
 
 const Checkout = () => {
+   const user = useSelector((state) => state.user);
    const [shippingMethod, setShippingMethod] = useState("free");
+   const dispatch = useDispatch();
+   const [form, setForm] = useState({
+      country: "",
+      fullname: "",
+      email: "",
+      phone: "",
+      street: "",
+      city: "",
+      region: "",
+      postal_code: "",
+      email_confirmation: "",
+   });
    function handleCheckShippingMethod(e) {
       setShippingMethod(e);
    }
+
+   const handleChange = (e) => {
+      const { name, value } = e.target;
+      setForm((prevState) => {
+         return { ...prevState, [name]: value };
+      });
+   };
+
+   const handleFormSubmit = () => {
+      const { email_confirmation, ...rest } = form;
+      dispatch(createOrderForm({ ...rest, shippingMethod }));
+   };
 
    return (
       <>
@@ -41,60 +69,65 @@ const Checkout = () => {
                   options={countries}
                   label={"Select shipping country"}
                   name={"country"}
+                  handleChange={handleChange}
                />
             </div>
             <div className="flex flex-col gap-2 mt-7">
                <InputComponent
                   name={"fullname"}
                   label={"Fullname"}
-                  readOnly
+                  readOnly={user !== null ? false : true}
                   required
+                  handleChange={handleChange}
                />
                <div className="flex gap-3">
                   <InputComponent
                      name={"email"}
                      label={"Email address"}
-                     readOnly
+                     readOnly={user !== null ? false : true}
                      required
+                     handleChange={handleChange}
                   />
                   <InputComponent
-                     name={"email-confirmation"}
+                     name={"email_confirmation"}
                      label={"Confirmation email "}
-                     readOnly
+                     error={form.email !== form.email_confirmation}
                      required
+                     handleChange={handleChange}
                   />
                </div>
                <InputComponent
+                  handleChange={handleChange}
                   name={"phone"}
                   label={"Phone number"}
-                  readOnly
                   required
                />
                <InputComponent
                   name={"street"}
                   label={"Street name and house number"}
-                  readOnly
                   required
+                  handleChange={handleChange}
                />
                <div className="flex gap-3">
                   <InputComponent
                      name={"city"}
+                     handleChange={handleChange}
                      label={"City"}
-                     readOnly
                      required
                   />
                   <InputComponent
                      name={"region"}
                      label={"Region"}
                      select
+                     handleChange={handleChange}
                      options={countries}
                   />
                </div>
                <InputComponent
                   name={"postal_code"}
                   label={"Postal code"}
-                  readOnly
                   required
+                  handleChange={handleChange}
                />
             </div>
          </div>
@@ -113,6 +146,7 @@ const Checkout = () => {
                />
             ))}
          </div>
+         <ButtonPayment handleClick={handleFormSubmit} title={"Submit Form"} />
       </>
    );
 };

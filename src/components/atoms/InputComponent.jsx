@@ -9,6 +9,10 @@ const InputComponent = ({
    options,
    handleChange,
    handleKeyUp,
+   error,
+   min,
+   max,
+   defaultValue,
 }) => {
    if (select) {
       return (
@@ -18,7 +22,9 @@ const InputComponent = ({
                {required && "*"}
             </span>
             <select
+               onChange={handleChange}
                name={name}
+               defaultValue={options[0]}
                className={`border focus:outline-none rounded border-slate-100 w-full p-2`}>
                {options?.map((opt, idx) => (
                   <option key={idx} value={opt}>
@@ -43,9 +49,14 @@ const InputComponent = ({
             onKeyUp={handleKeyUp}
             className={`${
                readOnly && "bg-slate-50"
-            } border focus:outline-none rounded placeholder:text-sm border-slate-100 w-full p-2`}
+            } border focus:outline-none rounded placeholder:text-sm ${
+               error ? "border-red-200" : "border-slate-100"
+            } w-full p-2`}
             readOnly={readOnly}
             required={required}
+            min={min}
+            max={max}
+            defaultValue={defaultValue}
          />
       </label>
    );

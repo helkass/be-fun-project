@@ -32,7 +32,7 @@ const PaymentLayout = ({ leftContent, rightContent }) => {
                Payment
             </span>
          </div>
-         <div className="flex sm:flex-row flex-col gap-5 min-h-[500px]">
+         <div className="flex sm:flex-row flex-col xl:gap-5 gap-3 min-h-[500px]">
             <div className="flex flex-col gap-3 md:w-8/12 w-full">
                {leftContent}
             </div>

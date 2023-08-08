@@ -6,6 +6,7 @@ import {
    Cart,
    Checkout,
    DetailProduct,
+   ErrorBoundary,
    Home,
    Notifications,
    Payment,
@@ -30,7 +31,6 @@ function App() {
                   <Route path="payment" element={<Payment />} />
                </Route>
                <Route path="notification" element={<Notifications />} />
-               <Route path="notification" element={<Notifications />} />
                <Route path="auth" element={<Authentication />} />
                <Route
                   path="user/:id"
@@ -40,6 +40,7 @@ function App() {
                      </ProtectedRoute>
                   }
                />
+               <Route path="*" element={<ErrorBoundary />} />
             </Route>
          </Routes>
       </div>

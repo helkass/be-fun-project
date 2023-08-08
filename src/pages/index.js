@@ -7,6 +7,7 @@ import Payment from "./Payment";
 import Products from "./Products";
 import Authentication from "./Authentication";
 import UserDetail from "./User";
+import ErrorBoundary from "./ErrorBoundary";
 
 export {
    Home,
@@ -18,4 +19,5 @@ export {
    Products,
    Authentication,
    UserDetail,
+   ErrorBoundary,
 };
