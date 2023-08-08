@@ -50,7 +50,7 @@ const LeftContentCart = () => {
                      key={index}
                      image={cart.image}
                      product_name={cart.product_name}
-                     amount={cart.amount}
+                     totalAmount={cart.totalAmount}
                      details={cart.details}
                      handleMinusQuantity={(detailId) =>
                         handleMinusQuantity(detailId, cart.id)
@@ -66,18 +66,24 @@ const LeftContentCart = () => {
 };
 
 const RightContentCart = () => {
+   const cart = useSelector((state) => state.cart);
+   const discount = 0;
    return (
       <>
-         <Typography keyName={"subtotal"} value={20} pay />
-         <Typography keyName={"discount"} value={0} pay slate />
+         <Typography keyName={"subtotal"} value={cart.cartTotalAmount} pay />
+         <Typography keyName={"discount"} value={discount} pay slate />
          <Typography
             keyName={"grand total"}
-            value={20}
+            value={Number(cart.cartTotalAmount - discount)}
             className={"!text-lg font-bold border-t mt-1 py-2"}
             pay
             normal
          />
-         <ButtonPayment title={"checkout now"} link={"/checkout"} />
+         <ButtonPayment
+            disabled={cart.cartTotalAmount <= 0}
+            title={"checkout now"}
+            link={"/checkout"}
+         />
       </>
    );
 };
@@ -105,7 +111,7 @@ function WrapperCart({
    product_name,
    handleMinusQuantity,
    handlePlusQuantity,
-   amount,
+   totalAmount,
    details,
 }) {
    return (
@@ -129,15 +135,15 @@ function WrapperCart({
                      </div>
                      <QuantityComponent
                         quantity={detail.detail_quantity}
-                        handleMinus={() => handleMinusQuantity(idx)}
-                        handlePlus={() => handlePlusQuantity(idx)}
+                        handleMinus={() => handleMinusQuantity(detail.id)}
+                        handlePlus={() => handlePlusQuantity(detail.id)}
                      />
                   </div>
                ))}
             </div>
          </div>
          <span className="w-3/12 text-center font-semibold text-lg">
-            ${amount}
+            ${totalAmount}
          </span>
       </div>
    );

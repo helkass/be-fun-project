@@ -6,6 +6,9 @@ export const cartState = {
    cartTotalQuantity: localStorage.getItem("g_clothes_cartTotalQty")
       ? JSON.parse(localStorage.getItem("g_clothes_cartTotalQty"))
       : 0,
+   cartTotalAmount: localStorage.getItem("g_clothes_cartTotalAmount")
+      ? JSON.parse(localStorage.getItem("g_clothes_cartTotalAmount"))
+      : 0,
 };
 
 const cartSlice = createSlice({
@@ -41,7 +44,7 @@ const cartSlice = createSlice({
                };
             } else {
                const details = state.carts[ids].details;
-               details.push(detail);
+               details.push({ ...detail, id: details.length + 1 });
                const pars = JSON.stringify(details);
 
                const out = JSON.parse(pars);
@@ -62,16 +65,17 @@ const cartSlice = createSlice({
             state.carts[ids] = {
                ...state.carts[ids],
                cartQuantity: sumQuantities,
-               amount: action.payload.amount * sumQuantities,
+               totalAmount: action.payload.amount * sumQuantities,
             };
          } else {
             const details = [];
-            details.push(action.payload.details);
+            details.push({ ...action.payload.details, id: 1 });
             let tempProduct = {
                ...action.payload,
                details: details,
                cartQuantity: action.payload.details.detail_quantity,
-               amount: Number(
+               amount: action.payload.amount,
+               totalAmount: Number(
                   action.payload.amount * action.payload.details.detail_quantity
                ),
             };
@@ -89,6 +93,17 @@ const cartSlice = createSlice({
          );
 
          localStorage.setItem("g_clothes_carts", JSON.stringify(state.carts));
+
+         const total =
+            state.carts.length >= 0
+               ? state.carts.map((product) => product.totalAmount)
+               : 0;
+         state.cartTotalAmount = total == 0 ? 0 : total.reduce((a, b) => a + b);
+
+         localStorage.setItem(
+            "g_clothes_cartTotalAmount",
+            JSON.stringify(state.cartTotalAmount)
+         );
       },
       INCREMENT_DETAIL_QUANTITY(state, action) {
          /**
@@ -105,15 +120,29 @@ const cartSlice = createSlice({
          // take details at cart product
          const details = pars[indexCartProduct].details;
          // get detail will be updated
-         const detail = details[action.payload.detailId];
+         const idxDetail = details.findIndex(
+            (details) => details.id == action.payload.detailId
+         );
 
          // updating detail_quantity
-         const updated = detail.detail_quantity + 1;
+         const updated =
+            state.carts[indexCartProduct].details[idxDetail].detail_quantity +
+            1;
 
          // set on state
-         state.carts[indexCartProduct].details[action.payload.detailId] = {
-            ...state.carts[indexCartProduct].details[action.payload.detailId],
+         state.carts[indexCartProduct].details[idxDetail] = {
+            ...state.carts[indexCartProduct].details[idxDetail],
             detail_quantity: updated,
+         };
+
+         // update cartQuantity bg product
+         state.carts[indexCartProduct] = {
+            ...state.carts[indexCartProduct],
+            cartQuantity: state.carts[indexCartProduct].cartQuantity + 1,
+            totalAmount: Number(
+               state.carts[indexCartProduct].totalAmount +
+                  state.carts[indexCartProduct].amount
+            ),
          };
 
          state.cartTotalQuantity = state.cartTotalQuantity + 1;
@@ -124,6 +153,14 @@ const cartSlice = createSlice({
             JSON.stringify(state.cartTotalQuantity)
          );
          localStorage.setItem("g_clothes_carts", JSON.stringify(state.carts));
+
+         const total = state.carts.map((product) => product.totalAmount);
+         state.cartTotalAmount = total.reduce((a, b) => a + b);
+
+         localStorage.setItem(
+            "g_clothes_cartTotalAmount",
+            JSON.stringify(state.cartTotalAmount)
+         );
       },
       DECREMENT_DETAIL_QUANTITY(state, action) {
          /**
@@ -140,11 +177,13 @@ const cartSlice = createSlice({
          // take details at cart product
          const details = pars[indexCartProduct].details;
          // get detail will be updated
-         const detail = details[action.payload.detailId];
+         const idxDetail = details.findIndex(
+            (detail) => detail.id == action.payload.detailId
+         );
 
          // check quantity
          let updated;
-         if (detail.detail_quantity == 1) {
+         if (details[idxDetail].detail_quantity == 1) {
             // check length of details
             if (details.length == 1) {
                //remove product from cart
@@ -152,36 +191,68 @@ const cartSlice = createSlice({
                   (product) => product.id !== action.payload.productId
                );
             } else {
-               // removed
+               // removed detail
                state.carts[indexCartProduct].details = state.carts[
                   indexCartProduct
-               ].details.splice(action.payload.detailId, 1);
+               ].details.filter(
+                  (detail) => detail.id !== action.payload.detailId
+               );
             }
          } else {
             // updating detail_quantity
-            updated = detail.detail_quantity - 1;
+            updated = details[idxDetail].detail_quantity - 1;
             // set on state
-            state.carts[indexCartProduct].details[action.payload.detailId] = {
-               ...state.carts[indexCartProduct].details[
-                  action.payload.detailId
-               ],
+            state.carts[indexCartProduct].details[idxDetail] = {
+               ...state.carts[indexCartProduct].details[idxDetail],
                detail_quantity: updated,
+            };
+            // update cartQuantity bg product
+            state.carts[indexCartProduct] = {
+               ...state.carts[indexCartProduct],
+               cartQuantity: state.carts[indexCartProduct].cartQuantity - 1,
+               totalAmount: Number(
+                  state.carts[indexCartProduct].totalAmount -
+                     state.carts[indexCartProduct].amount
+               ),
             };
          }
 
          state.cartTotalQuantity = state.cartTotalQuantity - 1;
+         localStorage.setItem("g_clothes_carts", JSON.stringify(state.carts));
+
+         if (state.carts.length > 0) {
+            const total = state.carts.map((product) => product.totalAmount);
+            state.cartTotalAmount =
+               total.length >= 0 ? total.reduce((a, b) => a + b) : 0;
+         } else {
+            state.cartTotalAmount = 0;
+         }
          // // save
          localStorage.setItem(
             "g_clothes_cartTotalQty",
             JSON.stringify(state.cartTotalQuantity)
          );
-         localStorage.setItem("g_clothes_carts", JSON.stringify(state.carts));
+         localStorage.setItem(
+            "g_clothes_cartTotalAmount",
+            JSON.stringify(state.cartTotalAmount)
+         );
       },
       REMOVE_ALL(state, action) {
          localStorage.removeItem("g_clothes_carts");
          localStorage.removeItem("g_clothes_cartTotalQty");
          state.carts = [];
          state.cartTotalQuantity = 0;
+
+         const total =
+            state.carts.length >= 0
+               ? state.carts.map((product) => product.totalAmount)
+               : 0;
+         state.cartTotalAmount = total == 0 ? 0 : total.reduce((a, b) => a + b);
+
+         localStorage.setItem(
+            "g_clothes_cartTotalAmount",
+            JSON.stringify(state.cartTotalAmount)
+         );
       },
    },
 });

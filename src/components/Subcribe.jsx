@@ -44,7 +44,7 @@ const Subcribe = () => {
                   <input
                      type="text"
                      name="subcribe"
-                     className="placeholder:text-sm sm:w-[270px] w-[160px] cursor-text"
+                     className="placeholder:text-sm sm:w-[270px] w-[160px] cursor-text bg-transparent"
                      placeholder="Enter your email"
                   />
                </label>
