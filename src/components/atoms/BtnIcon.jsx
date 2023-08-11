@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
 
-const BtnIcon = ({ Icon, title, link, active, type }) => {
+const BtnIcon = ({ Icon, title, link, active, type, onClick, className }) => {
    if (link) {
       return (
          <Link to={link}>
-            <Button active={active}>
+            <Button active={active} className={className}>
                {type == "img" ? (
                   <img
                      src={Icon}
                      alt="test"
-                     className="w-[40px] h-[40px] object-cover"
+                     className="w-[40px] h-[40px] bg-transparent object-cover"
                   />
                ) : (
                   <Icon size={20} />
@@ -20,8 +20,16 @@ const BtnIcon = ({ Icon, title, link, active, type }) => {
       );
    }
    return (
-      <Button active={active}>
-         <Icon size={19} />
+      <Button onClick={onClick} active={active} className={className}>
+         {type == "img" ? (
+            <img
+               src={Icon}
+               alt="test"
+               className="w-[40px] h-[40px] bg-transparent object-cover"
+            />
+         ) : (
+            <Icon size={19} />
+         )}
          {title && <span>{title}</span>}
       </Button>
    );

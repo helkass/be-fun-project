@@ -4,8 +4,6 @@ import CardVoucher from "../../components/card/CardVoucher";
 import Col from "../../components/template/Flex/Col";
 import SectionTitle from "../../components/template/SectionTitle";
 import { memo } from "react";
-import "owl.carousel/dist/assets/owl.theme.default.css";
-import "owl.carousel/dist/assets/owl.carousel.css";
 import OwlCarousel from "react-owl-carousel";
 
 import banner from "../../assets/banner.jpeg";

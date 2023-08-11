@@ -9,6 +9,7 @@ import FooterBelanja from "./FooterBelanja";
 import ReactOwlCarousel from "react-owl-carousel";
 import { vouchers } from "../../constants/vouchers";
 import { replaceSpacingAll } from "../../utils/replaced";
+import BtnFilter from "../atoms/BtnFilter";
 
 function getFilter(path) {
    return vouchers.findIndex((link) => replaceSpacingAll(link.title) == path);
@@ -90,7 +91,7 @@ const PilihPaket = ({ children }) => {
                {...options}>
                {vouchers[indexOfPathname]?.sublinks &&
                   vouchers[indexOfPathname].sublinks?.map((sub, i) => (
-                     <ButtonFilter
+                     <BtnFilter
                         active={filtered == replaceSpacingAll(sub)}
                         onClick={() => handleActiveButtonFilter(sub)}
                         title={sub}
@@ -126,15 +127,4 @@ const ButtonNavigate = React.memo(({ active, Icon, title, link }) => {
    );
 });
 
-const ButtonFilter = ({ onClick, title, active }) => {
-   return (
-      <button
-         onClick={onClick}
-         className={` px-3 py-2 text-xs whitespace-nowrap rounded-xl ml-2 ${
-            active ? "bg-slate-900 text-white" : "bg-white text-slate-400"
-         }`}>
-         {title}
-      </button>
-   );
-};
 export default PilihPaket;

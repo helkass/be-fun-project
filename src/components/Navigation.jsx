@@ -6,11 +6,15 @@ import { LuUserCog } from "react-icons/lu";
 import { ImHome, ImTrophy } from "react-icons/im";
 import { FaShoppingBag } from "react-icons/fa";
 import logo from "../assets/telkomsel-logo.svg";
+import { RiArrowRightSLine } from "react-icons/ri";
 
 import { IoIosArrowForward, IoMdNotificationsOutline } from "react-icons/io";
 import { IoRocketOutline } from "react-icons/io5";
 import BtnLink from "./atoms/BtnLink";
 import { useLocation, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+
+import Close_icon from "../assets/close.svg";
 
 export function NavgationHomeTop() {
    const { pathname } = useLocation();
@@ -77,6 +81,8 @@ export function NavigationMainBottom() {
    const navigate = useNavigate();
    const location = pathname.split("/")[1];
 
+   const [showModals, setShowModals] = useState(false);
+
    const links = [
       {
          title: "Beranda",
@@ -96,7 +102,7 @@ export function NavigationMainBottom() {
       {
          title: "Reward",
          link: "/reward",
-         data: ["x", "x", "x", "x"],
+         data: ["reward", "x", "x", "x"],
       },
       {
          title: "Jelajah",
@@ -133,7 +139,7 @@ export function NavigationMainBottom() {
             if (icons[idx].type == "img") {
                return (
                   <Button
-                     onClick={() => navigate(link.link)}
+                     onClick={() => setShowModals(!showModals)}
                      key={idx}
                      className="px-2 pt-2 flex !justify-end">
                      <img
@@ -155,9 +161,101 @@ export function NavigationMainBottom() {
                />
             );
          })}
+         <MenuModals
+            show={showModals}
+            setShow={() => setShowModals(!showModals)}
+         />
       </div>
    );
 }
+
+const MenuModals = React.memo(({ show, setShow }) => {
+   return (
+      <div
+         className={`absolute h-screen p-2 w-full bg-black/50 transition-all backdrop-blur-xl ease-in-out duration-500 z-[100] ${
+            show
+               ? "scale-100 bottom-0 translate-y-0 left-0"
+               : "scale-0 translate-y-[150%]"
+         }`}>
+         <div className="max-h-500px p-3 ">
+            <div className="h-[80vh] bg-white overflow-y-auto rounded-2xl p-3">
+               <div className="flex flex-col gap-6">
+                  <h4 className="flex flex-nowrap gap-3 items-center font-bold text-lg">
+                     Mobile <RiArrowRightSLine />
+                  </h4>
+                  <div className="grid grid-cols-4 gap-3">
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                  </div>
+                  <h4 className="flex flex-nowrap gap-3 items-center font-bold text-lg">
+                     Mobile <RiArrowRightSLine />
+                  </h4>
+                  <div className="grid grid-cols-4 gap-3">
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                  </div>
+                  <h4 className="flex flex-nowrap gap-3 items-center font-bold text-lg">
+                     Mobile <RiArrowRightSLine />
+                  </h4>
+                  <div className="grid grid-cols-4 gap-3">
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                  </div>
+                  <h4 className="flex flex-nowrap gap-3 items-center font-bold text-lg">
+                     Mobile <RiArrowRightSLine />
+                  </h4>
+                  <div className="grid grid-cols-4 gap-3">
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                     <BtnIcon Icon={ImTrophy} title={"Beli Paket"} />
+                  </div>
+               </div>
+            </div>
+            <BtnIcon
+               className={"mx-auto mt-6"}
+               onClick={setShow}
+               type={"img"}
+               Icon={Close_icon}
+            />
+         </div>
+      </div>
+   );
+});
 
 const WrapperFlex = ({ children }) => {
    return <div className="flex flex-nowrap gap-3 items-center">{children}</div>;

@@ -4,6 +4,8 @@ import { Home, Dashboard, Indihome, OnePacket, Video } from "./pages/Home";
 import BelanjaLayout from "./layouts/BelanjaLayout";
 import { Packets } from "./pages/Belanja";
 import AutoRedirect from "./middleware/AutoRedirect";
+import { HomeReward } from "./pages/Reward";
+import Search from "./pages/Search";
 
 function App() {
    return (
@@ -30,10 +32,13 @@ function App() {
 
                      <Route path=":paket" element={<Packets />} />
                   </Route>
-
-                  {/* handling 404 */}
-                  <Route path="*" element={<Navigate to="/mobile" replace />} />
+                  <Route path="/reward" element={<HomeReward />} />
                </Route>
+               {/* handling 404 */}
+               <Route path="*" element={<Navigate to="/mobile" replace />} />
+
+               {/* -------search page */}
+               <Route path="/search" element={<Search />} />
             </Routes>
          </main>
       </div>
